@@ -3,13 +3,12 @@ import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
-from launch.substitutions import LaunchConfiguration
+from launch.substitutions import LaunchConfiguration, Command
 from launch_ros.actions import Node
 
 
 def generate_launch_description():
-    use_sim_time = LaunchConfiguration('use_sim_time', default='false')
-    urdf_file_name = 'kuka_kr16.urdf'
+    urdf_file_name = 'urdf/kuka_kr16.urdf'
 
     print("urdf_file_name : {}".format(urdf_file_name))
 
@@ -18,35 +17,23 @@ def generate_launch_description():
         urdf_file_name)
 
     return LaunchDescription([
-        DeclareLaunchArgument(
-            'use_sim_time',
-            default_value='false',
-            description='Use simulation (Gazebo) clock if true'),
-
+        # start up the robot state publisher.
+        # runs xacro on the urdf before loading the file.
         Node(
             package='robot_state_publisher',
+            namespace='lundgren',
             executable='robot_state_publisher',
             name='robot_state_publisher',
             output='screen',
-            parameters=[{'use_sim_time': use_sim_time}],
-            arguments=[urdf]),
+            parameters=[{
+                'robot_description':Command(['xacro',' ', urdf])
+                }]),
 
+        # starts the joint state publisher gui in case you want
+        # control the joint states.
         Node(
             package='joint_state_publisher_gui',
+            namespace='lundgren',
             executable='joint_state_publisher_gui',
             name='joint_state_publisher_gui'
-        ),
-
-        Node(
-            package='rviz2',
-            executable='rviz2',
-            name='rviz2',
-            output='screen'
-        ),
-
-        Node(
-            package='felix_lundgren',
-            executable='random_joint_state_publisher',
-            name='state_publisher',
-            output='screen'),
-    ])
+        )])

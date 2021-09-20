@@ -17,8 +17,8 @@ setup(
         ('share/' + package_name, ['package.xml']),
         (os.path.join('share', package_name, 'launch'), glob('launch/*.py')),
         (os.path.join('share', package_name, 'urdf'), glob('urdf/*.urdf')),
-        (os.path.join('share', package_name, 'meshes/kr16/collision'), glob('meshes/kr16/collision/*.stl'))
-        (os.path.join('share', package_name, 'meshes/kr16/visual'), glob('meshes/kr16/visual/*.dae'))
+        (os.path.join('share', package_name, 'meshes/collision'), glob('meshes/collision/*.stl')),
+        (os.path.join('share', package_name, 'meshes/visual'), glob('meshes/visual/*.dae'))
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -29,7 +29,6 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'random_joint_state_publisher = felix_lundgren.random_joint_state_publisher:main'
         ],
     },
 )

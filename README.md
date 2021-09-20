@@ -27,3 +27,8 @@ Run
 ros2 launch felix_lundgren robot_joint_publisher.launch.py
 ```
 You can start up Rviz2 or Unity and look at the robot move. There is an Rviz configuration in the launch folder that sets the plugins properly.
+
+To run the Unity Endpoint, run:
+```
+ros2 run ros_tcp_endpoint default_server_endpoint --ros-args -p ROS_IP:=<Your IP>
+```

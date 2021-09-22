@@ -1,0 +1,18 @@
+
+fake_joint_driver_node:
+  ros__parameters:
+    start_position:
+      joints:
+        - lundgren_joint_a1
+        - lundgren_joint_a2
+        - lundgren_joint_a3
+        - lundgren_joint_a4
+        - lundgren_joint_a5
+        - lundgren_joint_a6
+      values:
+        - 0.0
+        - -1.570796326794897
+        - 1.570796326794897
+        - 0.0
+        - 1.570796326794897
+        - 0.0

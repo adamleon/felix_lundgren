@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!-- Revolute-Revolute Manipulator -->
+<!--
+Copied and modified from ROS1 example -
+https://github.com/ros-simulation/gazebo_ros_demos/blob/kinetic-devel/rrbot_description/urdf/rrbot.xacro
+-->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="lundgren_cell">
+  <xacro:arg name="prefix" default="lundgren_" />
+
+  <!-- Import RRBot macro -->
+  <xacro:include filename="$(find felix_lundgren)/urdf/kuka_kr16.urdf.xacro" />
+
+  <!-- Import RRBot ros2_control description -->
+  <xacro:include filename="$(find felix_lundgren)/ros2_control/lundgren_cell.ros2_control.xacro" />
+
+  <!-- Used for fixing robot -->
+  <link name="world"/>
+
+  <xacro:kr16_description parent="world" prefix="$(arg prefix)" />
+
+  <xacro:kr16_ros2_control name="kr16" prefix="$(arg prefix)" />
+
+</robot>

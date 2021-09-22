@@ -1,8 +1,7 @@
 <?xml version="1.0" ?>
 <robot name="kuka_kr16" xmlns:xacro="http://wiki.ros.org/xacro">
-<xacro:property name="prefix" value="lundgren_" />
 <!--Macros -->
-  <xacro:macro name="link_macro" params="link_name">
+  <xacro:macro name="link_macro" params="prefix link_name">
     <link name="${prefix}${link_name}">
       <visual>
         <geometry>
@@ -73,25 +72,27 @@
       <origin xyz="0.158 0 0" rpy="0 ${radians(90)} 0"/>
     </joint>
     <!-- END JOINTS -->
+  </xacro:macro>
 
+  <!-- CONFIGURE ROBOT -->
+  <xacro:macro name="kr16_description" params="parent prefix">
+    <!-- LINKS -->
+    <xacro:link_macro prefix="${prefix}" link_name="base_link" />
+    <xacro:link_macro prefix="${prefix}" link_name="link_1" />
+    <xacro:link_macro prefix="${prefix}" link_name="link_2" />
+    <xacro:link_macro prefix="${prefix}" link_name="link_3" />
+    <xacro:link_macro prefix="${prefix}" link_name="link_4" />
+    <xacro:link_macro prefix="${prefix}" link_name="link_5" />
+    <xacro:link_macro prefix="${prefix}" link_name="link_6" />
+    <link name="${prefix}tool0" />
+    <!-- END LINKS -->
+    <!-- JOINTS -->
+    <xacro:joints />
     <!-- ROS base_link to KUKA $ROBROOT coordinate system transform -->
-    <link name="${prefix}base"/>
     <joint name="${prefix}base_link-base" type="fixed">
-      <parent link="${prefix}base"/>
+      <parent link="${parent}"/>
       <child link="${prefix}base_link"/>
     </joint>
   </xacro:macro>
-<!-- LINKS -->
-  <xacro:link_macro link_name="base_link" />
-  <xacro:link_macro link_name="link_1" />
-  <xacro:link_macro link_name="link_2" />
-  <xacro:link_macro link_name="link_3" />
-  <xacro:link_macro link_name="link_4" />
-  <xacro:link_macro link_name="link_5" />
-  <xacro:link_macro link_name="link_6" />
-  <link name="${prefix}tool0" />
-  <!-- END LINKS -->
-<!-- JOINTS -->
-  <xacro:joints />
 </robot>
 

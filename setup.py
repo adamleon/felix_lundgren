@@ -18,9 +18,9 @@ setup(
         (os.path.join('share', package_name, 'launch'), glob('launch/*.py')),
         (os.path.join('share', package_name, 'urdf'), glob('urdf/*.xacro')),
         (os.path.join('share', package_name, 'ros2_control'), glob('ros2_control/*.xacro')),
-        (os.path.join('share', package_name, 'config/moveit2'), glob('config/moveit2/*.yaml')),
-        (os.path.join('share', package_name, 'config/ros2_control'), glob('config/ros2_control/*.yaml')),
-        (os.path.join('share', package_name, 'urdf'), glob('urdf/*.srdf')),
+        (os.path.join('share', package_name, 'ros2_control'), glob('ros2_control/*.yaml')),
+        (os.path.join('share', package_name, 'moveit2'), glob('moveit2/*.yaml')),
+        (os.path.join('share', package_name, 'moveit2'), glob('moveit2/*.srdf')),
         (os.path.join('share', package_name, 'meshes/collision'), glob('meshes/collision/*.stl')),
         (os.path.join('share', package_name, 'meshes/visual'), glob('meshes/visual/*.dae'))
     ],

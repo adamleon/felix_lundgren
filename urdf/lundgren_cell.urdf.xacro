@@ -18,6 +18,6 @@ https://github.com/ros-simulation/gazebo_ros_demos/blob/kinetic-devel/rrbot_desc
 
   <xacro:kr16_description parent="world" prefix="$(arg prefix)" />
 
-  <xacro:kr16_ros2_control name="kr16" prefix="$(arg prefix)" />
+  <xacro:kr16_ros2_control name="kr16" prefix="$(arg prefix)" sim="True" />
 
 </robot>

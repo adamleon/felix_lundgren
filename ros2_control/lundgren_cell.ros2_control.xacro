@@ -1,59 +1,45 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- Common joint configuration for KUKA KR16 robot -->
+    <!-- Each joint has a command interface that sets the position of a joint -->
+    <!-- The also have a state interface that checks the state of the position -->
+    <!-- currently on the robot. -->
+    <xacro:macro name="joint_configuration" params="joint_name">
+        <joint name="${joint_name}">
+            <command_interface name="position">
+                <param name="min">-1</param>
+                <param name="max">1</param>
+            </command_interface>
+            <state_interface name="position"/>
+        </joint>
+    </xacro:macro>
 
-  <xacro:macro name="kr16_ros2_control" params="name prefix">
-
+    <!-- This URDF is used by ros2_control to set up the hardware interface -->
+    <!-- Currently only a simulated HW interface is implemented -->
+    <xacro:macro name="kr16_ros2_control" params="name prefix sim">
     <ros2_control name="${name}" type="system">
-      <hardware>
-        <plugin>fake_components/GenericSystem</plugin>
-        <param name="fake_sensor_commands">false</param>
-        <param name="state_following_offset">0.0</param>
-      </hardware>
+        <xacro:if value="${sim}">
+            <hardware>
+                <plugin>fake_components/GenericSystem</plugin>
+                    <param name="fake_sensor_commands">false</param>
+                    <param name="state_following_offset">0.0</param>
+            </hardware>
+        </xacro:if>
+        <xacro:if value="${not sim}">
+            <!-- Currently there is no physical hardware interface for the KR16 -->
+            <hardware>
+                <plugin>fake_components/GenericSystem</plugin>
+                    <param name="fake_sensor_commands">false</param>
+                    <param name="state_following_offset">0.0</param>
+            </hardware>
+        </xacro:if>
 
-      <joint name="${prefix}joint_a1">
-        <command_interface name="position">
-          <param name="min">-1</param>
-          <param name="max">1</param>
-        </command_interface>
-        <state_interface name="position"/>
-      </joint>
-      <joint name="${prefix}joint_a2">
-        <command_interface name="position">
-          <param name="min">-1</param>
-          <param name="max">1</param>
-        </command_interface>
-        <state_interface name="position"/>
-      </joint>
-      <joint name="${prefix}joint_a3">
-        <command_interface name="position">
-          <param name="min">-1</param>
-          <param name="max">1</param>
-        </command_interface>
-        <state_interface name="position"/>
-      </joint>
-      <joint name="${prefix}joint_a4">
-        <command_interface name="position">
-          <param name="min">-1</param>
-          <param name="max">1</param>
-        </command_interface>
-        <state_interface name="position"/>
-      </joint>
-      <joint name="${prefix}joint_a5">
-        <command_interface name="position">
-          <param name="min">-1</param>
-          <param name="max">1</param>
-        </command_interface>
-        <state_interface name="position"/>
-      </joint>
-      <joint name="${prefix}joint_a6">
-        <command_interface name="position">
-          <param name="min">-1</param>
-          <param name="max">1</param>
-        </command_interface>
-        <state_interface name="position"/>
-      </joint>
+        <xacro:joint_configuration joint_name="${prefix}joint_a1" />
+        <xacro:joint_configuration joint_name="${prefix}joint_a2" />
+        <xacro:joint_configuration joint_name="${prefix}joint_a3" />
+        <xacro:joint_configuration joint_name="${prefix}joint_a4" />
+        <xacro:joint_configuration joint_name="${prefix}joint_a5" />
+        <xacro:joint_configuration joint_name="${prefix}joint_a6" />
     </ros2_control>
-
-  </xacro:macro>
-
+    </xacro:macro>
 </robot>

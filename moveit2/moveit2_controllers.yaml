@@ -1,0 +1,22 @@
+# This configuration file is used by the MoveIt2 Simple Controller Manager
+# that sends connects the Planning Execution Pipeline to a robot controller.
+# KUKA KR16 uses a joint trajectory controller, which is currently supported by
+# the Simple Controller Manager.
+# The Simple Controller Manager creates an action client that connects to the
+# <contrller_name>/<action_ns> action server.
+# ros2_control starts up an action server called
+# lundgren_position_trajectory_controller/follow_joint_trajectory
+controller_names:
+  - lundgren_position_trajectory_controller
+
+lundgren_position_trajectory_controller:
+  action_ns: follow_joint_trajectory
+  type: FollowJointTrajectory
+  default: true
+  joints:
+    - lundgren_joint_a1
+    - lundgren_joint_a2
+    - lundgren_joint_a3
+    - lundgren_joint_a4
+    - lundgren_joint_a5
+    - lundgren_joint_a6
